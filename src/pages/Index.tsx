@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import AnimateOnScroll from '@/components/AnimateOnScroll';
 
 const specialists = [
   {
@@ -130,6 +131,27 @@ const testimonials = [
   }
 ];
 
+const gallery = [
+  {
+    id: 1,
+    url: 'https://cdn.poehali.dev/projects/58a0892d-26c2-4306-86d6-b04a3739c254/files/e2e4730f-65d0-4880-b970-8333244347eb.jpg',
+    title: 'Наша ресепшн-зона',
+    description: 'Комфортное пространство для ожидания'
+  },
+  {
+    id: 2,
+    url: 'https://cdn.poehali.dev/projects/58a0892d-26c2-4306-86d6-b04a3739c254/files/8ad987a4-b8e7-4dd8-9266-dbd406475743.jpg',
+    title: 'Кабинет приема',
+    description: 'Современное оборудование для диагностики'
+  },
+  {
+    id: 3,
+    url: 'https://cdn.poehali.dev/projects/58a0892d-26c2-4306-86d6-b04a3739c254/files/e762b4ed-6273-48b0-8170-5a60a9221450.jpg',
+    title: 'Операционная',
+    description: 'Стерильная среда для операций'
+  }
+];
+
 export default function Index() {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
@@ -170,6 +192,7 @@ export default function Index() {
           <nav className="hidden md:flex gap-6">
             <a href="#about" className="hover:text-primary transition-colors">О нас</a>
             <a href="#services" className="hover:text-primary transition-colors">Услуги</a>
+            <a href="#gallery" className="hover:text-primary transition-colors">Галерея</a>
             <a href="#promotions" className="hover:text-primary transition-colors">Акции</a>
             <a href="#specialists" className="hover:text-primary transition-colors">Специалисты</a>
             <a href="#testimonials" className="hover:text-primary transition-colors">Отзывы</a>
@@ -406,50 +429,88 @@ export default function Index() {
 
       <section id="about" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">О нашей клинике</h2>
-            <p className="text-lg text-muted-foreground">
-              Более 15 лет мы заботимся о здоровье домашних животных. Наша команда — это профессиональные 
-              ветеринары с большим опытом работы, которые искренне любят животных и делают всё возможное 
-              для их здоровья и комфорта.
-            </p>
-            <div className="grid md:grid-cols-3 gap-8 pt-8">
-              <div className="text-center space-y-2">
-                <div className="text-4xl font-bold text-primary">15+</div>
-                <div className="text-muted-foreground">лет опыта</div>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="text-4xl font-bold text-primary">10 000+</div>
-                <div className="text-muted-foreground">счастливых питомцев</div>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="text-4xl font-bold text-primary">24/7</div>
-                <div className="text-muted-foreground">скорая помощь</div>
+          <AnimateOnScroll>
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <h2 className="text-3xl md:text-4xl font-bold">О нашей клинике</h2>
+              <p className="text-lg text-muted-foreground">
+                Более 15 лет мы заботимся о здоровье домашних животных. Наша команда — это профессиональные 
+                ветеринары с большим опытом работы, которые искренне любят животных и делают всё возможное 
+                для их здоровья и комфорта.
+              </p>
+              <div className="grid md:grid-cols-3 gap-8 pt-8">
+                <div className="text-center space-y-2">
+                  <div className="text-4xl font-bold text-primary">15+</div>
+                  <div className="text-muted-foreground">лет опыта</div>
+                </div>
+                <div className="text-center space-y-2">
+                  <div className="text-4xl font-bold text-primary">10 000+</div>
+                  <div className="text-muted-foreground">счастливых питомцев</div>
+                </div>
+                <div className="text-center space-y-2">
+                  <div className="text-4xl font-bold text-primary">24/7</div>
+                  <div className="text-muted-foreground">скорая помощь</div>
+                </div>
               </div>
             </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      <section id="gallery" className="py-20 bg-secondary/30">
+        <div className="container mx-auto px-4">
+          <AnimateOnScroll>
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">Фотогалерея клиники</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Посмотрите, как выглядит наша клиника изнутри
+              </p>
+            </div>
+          </AnimateOnScroll>
+          <div className="grid md:grid-cols-3 gap-6">
+            {gallery.map((photo, index) => (
+              <AnimateOnScroll key={photo.id} delay={100 + index * 100}>
+                <Card className="overflow-hidden group hover:shadow-xl transition-all">
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src={photo.url} 
+                      alt={photo.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{photo.title}</CardTitle>
+                    <CardDescription>{photo.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </AnimateOnScroll>
+            ))}
           </div>
         </div>
       </section>
 
       <section id="services" className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">Наши услуги</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Полный спектр ветеринарных услуг для ваших любимцев
-            </p>
-          </div>
+          <AnimateOnScroll>
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">Наши услуги</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Полный спектр ветеринарных услуг для ваших любимцев
+              </p>
+            </div>
+          </AnimateOnScroll>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1 border-2">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                    <Icon name={service.icon} className="text-primary" size={24} />
-                  </div>
-                  <CardTitle>{service.title}</CardTitle>
-                  <CardDescription>{service.description}</CardDescription>
-                </CardHeader>
-              </Card>
+              <AnimateOnScroll key={index} delay={100 + index * 100}>
+                <Card className="hover:shadow-lg transition-all hover:-translate-y-1 border-2">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                      <Icon name={service.icon} className="text-primary" size={24} />
+                    </div>
+                    <CardTitle>{service.title}</CardTitle>
+                    <CardDescription>{service.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
@@ -457,27 +518,31 @@ export default function Index() {
 
       <section id="promotions" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">Акции и специальные предложения</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Выгодные условия для наших клиентов
-            </p>
-          </div>
+          <AnimateOnScroll>
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">Акции и специальные предложения</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Выгодные условия для наших клиентов
+              </p>
+            </div>
+          </AnimateOnScroll>
           <div className="grid md:grid-cols-3 gap-6">
             {promotions.map((promo, index) => (
-              <Card key={index} className={`${promo.color} border-0 hover:shadow-lg transition-all hover:-translate-y-1`}>
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <CardTitle className="text-xl">{promo.title}</CardTitle>
-                    <Badge variant="secondary" className="text-lg font-bold">
-                      {promo.discount}
-                    </Badge>
-                  </div>
-                  <CardDescription className="text-foreground/80">
-                    {promo.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+              <AnimateOnScroll key={index} delay={100 + index * 100}>
+                <Card className={`${promo.color} border-0 hover:shadow-lg transition-all hover:-translate-y-1`}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-2">
+                      <CardTitle className="text-xl">{promo.title}</CardTitle>
+                      <Badge variant="secondary" className="text-lg font-bold">
+                        {promo.discount}
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-foreground/80">
+                      {promo.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
@@ -485,24 +550,28 @@ export default function Index() {
 
       <section id="specialists" className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">Наши специалисты</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Команда профессионалов с большим опытом работы
-            </p>
-          </div>
+          <AnimateOnScroll>
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">Наши специалисты</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Команда профессионалов с большим опытом работы
+              </p>
+            </div>
+          </AnimateOnScroll>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {specialists.map((specialist) => (
-              <Card key={specialist.id} className="text-center hover:shadow-lg transition-all hover:-translate-y-1">
-                <CardHeader>
-                  <div className="text-7xl mb-4">{specialist.image}</div>
-                  <CardTitle>{specialist.name}</CardTitle>
-                  <CardDescription className="space-y-1">
-                    <div className="font-semibold text-primary">{specialist.specialty}</div>
-                    <div className="text-sm">Опыт: {specialist.experience}</div>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+            {specialists.map((specialist, index) => (
+              <AnimateOnScroll key={specialist.id} delay={100 + index * 100}>
+                <Card className="text-center hover:shadow-lg transition-all hover:-translate-y-1">
+                  <CardHeader>
+                    <div className="text-7xl mb-4">{specialist.image}</div>
+                    <CardTitle>{specialist.name}</CardTitle>
+                    <CardDescription className="space-y-1">
+                      <div className="font-semibold text-primary">{specialist.specialty}</div>
+                      <div className="text-sm">Опыт: {specialist.experience}</div>
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
@@ -618,33 +687,37 @@ export default function Index() {
 
       <section id="testimonials" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">Отзывы наших клиентов</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Что говорят о нас владельцы питомцев
-            </p>
-          </div>
+          <AnimateOnScroll>
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">Отзывы наших клиентов</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Что говорят о нас владельцы питомцев
+              </p>
+            </div>
+          </AnimateOnScroll>
           <div className="grid md:grid-cols-2 gap-6">
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="hover:shadow-lg transition-all">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                      <CardDescription>{testimonial.pet}</CardDescription>
+            {testimonials.map((testimonial, index) => (
+              <AnimateOnScroll key={testimonial.id} delay={100 + (index % 2) * 100}>
+                <Card className="hover:shadow-lg transition-all">
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                        <CardDescription>{testimonial.pet}</CardDescription>
+                      </div>
+                      <div className="flex gap-1">
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                          <Icon key={i} name="Star" size={16} className="fill-primary text-primary" />
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex gap-1">
-                      {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <Icon key={i} name="Star" size={16} className="fill-primary text-primary" />
-                      ))}
-                    </div>
-                  </div>
-                  <CardDescription className="text-foreground/80 leading-relaxed">
-                    "{testimonial.text}"
-                  </CardDescription>
-                  <div className="text-sm text-muted-foreground mt-2">{testimonial.date}</div>
-                </CardHeader>
-              </Card>
+                    <CardDescription className="text-foreground/80 leading-relaxed">
+                      "{testimonial.text}"
+                    </CardDescription>
+                    <div className="text-sm text-muted-foreground mt-2">{testimonial.date}</div>
+                  </CardHeader>
+                </Card>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
