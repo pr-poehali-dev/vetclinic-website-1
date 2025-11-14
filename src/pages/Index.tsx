@@ -95,6 +95,41 @@ const promotions = [
   }
 ];
 
+const testimonials = [
+  {
+    id: 1,
+    name: 'Мария Смирнова',
+    pet: 'Кот Мурзик',
+    rating: 5,
+    text: 'Спасибо огромное доктору Анне! Мурзик был очень болен, но благодаря профессионализму и заботе врачей, он быстро пошел на поправку. Очень довольны!',
+    date: 'Октябрь 2024'
+  },
+  {
+    id: 2,
+    name: 'Алексей Иванов',
+    pet: 'Собака Рекс',
+    rating: 5,
+    text: 'Отличная клиника! Сделали сложную операцию нашему Рексу. Всё прошло успешно, врачи очень внимательные и опытные. Рекомендуем!',
+    date: 'Сентябрь 2024'
+  },
+  {
+    id: 3,
+    name: 'Екатерина Попова',
+    pet: 'Кошка Снежинка',
+    rating: 5,
+    text: 'Прекрасная атмосфера, чистота, доброжелательный персонал. Снежинка всегда боялась ветеринаров, но здесь чувствует себя спокойно. Наша любимая клиника!',
+    date: 'Ноябрь 2024'
+  },
+  {
+    id: 4,
+    name: 'Дмитрий Козлов',
+    pet: 'Хомяк Чип',
+    rating: 5,
+    text: 'Думали, что с хомячком никто не возьмется работать, но здесь приняли как родного! Грамотная консультация, эффективное лечение. Спасибо!',
+    date: 'Октябрь 2024'
+  }
+];
+
 export default function Index() {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
@@ -137,6 +172,7 @@ export default function Index() {
             <a href="#services" className="hover:text-primary transition-colors">Услуги</a>
             <a href="#promotions" className="hover:text-primary transition-colors">Акции</a>
             <a href="#specialists" className="hover:text-primary transition-colors">Специалисты</a>
+            <a href="#testimonials" className="hover:text-primary transition-colors">Отзывы</a>
           </nav>
           <Dialog>
             <DialogTrigger asChild>
@@ -577,6 +613,40 @@ export default function Index() {
               </form>
             </DialogContent>
           </Dialog>
+        </div>
+      </section>
+
+      <section id="testimonials" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center space-y-4 mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold">Отзывы наших клиентов</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Что говорят о нас владельцы питомцев
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((testimonial) => (
+              <Card key={testimonial.id} className="hover:shadow-lg transition-all">
+                <CardHeader>
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                      <CardDescription>{testimonial.pet}</CardDescription>
+                    </div>
+                    <div className="flex gap-1">
+                      {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        <Icon key={i} name="Star" size={16} className="fill-primary text-primary" />
+                      ))}
+                    </div>
+                  </div>
+                  <CardDescription className="text-foreground/80 leading-relaxed">
+                    "{testimonial.text}"
+                  </CardDescription>
+                  <div className="text-sm text-muted-foreground mt-2">{testimonial.date}</div>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
